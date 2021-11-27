@@ -6,19 +6,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import static sibsutis.sed.sedsibsutis.controller.HealthCheckController.HEALTH_URL;
+
 /**
  * Точка входа для проверки службы
  */
 @RestController
-@RequestMapping(value = "/check")
+@RequestMapping(HEALTH_URL)
 public class HealthCheckController {
+
+    public static final String HEALTH_URL = "/check";
+
+    private static final String HEALTH_CHECK_URL = "/register";
 
     /**
      * Метод для проверки службы
      *
      * @return строку ок
      */
-    @RequestMapping(value = "/healthcheck")
+    @RequestMapping(HEALTH_CHECK_URL)
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
     String check() {

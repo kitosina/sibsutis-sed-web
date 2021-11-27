@@ -8,10 +8,17 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class NewUser {
-
+    /**
+     * Сообщение о неверном формате email
+     */
     private static final String ERROR_FORMAT_EMAIL = "Email error format";
+    /**
+     * Сообщение о пустом формате
+     */
     private static final String ERROR_EMAIL_NOT_EMPTY = "Email not may be empty";
-
+    /**
+     * Сообщение о неверном формате password
+     */
     private static final String ERROR_PASSWORD_NOT_EMPTY = "Password not may be empty";
 
     @Email(message = ERROR_FORMAT_EMAIL)

@@ -13,8 +13,17 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 
+/**
+ * Шифратор и дешифратор документов по ГОСТ-3410
+ */
 public class GOSTCrypto extends Crypto {
 
+    /**
+     * Генератор пары ключей (public key, private key)
+     * @return KeyPair - пара ключей для пользователя в системе
+     * @throws GeneralSecurityException
+     * @see KeyPair
+     */
     @Override
     public KeyPair generateKeyPair() throws GeneralSecurityException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECGOST3410");
@@ -22,6 +31,12 @@ public class GOSTCrypto extends Crypto {
         return keyPairGenerator.generateKeyPair();
     }
 
+    /**
+     * Метод для подписи документов приватным ключом
+     * @param privateKey
+     * @return
+     * @throws OperatorCreationException
+     */
     @Override
     public ContentSigner getContentSigner(PrivateKey privateKey) throws OperatorCreationException {
         return new JcaContentSignerBuilder("GOST3411withECGOST3410").build(privateKey);

@@ -52,11 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * This method encode password
-     * @see Bean
-     * @return encoder password object
+     * Бин для кодировки пароля BCrypt Encoder
+     * @return PasswordEncoder
      */
-    @Bean("passwordEncodeBCrypt")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

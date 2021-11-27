@@ -35,7 +35,7 @@ public class SedDbConfig {
     }
 
     /**
-     * Получение LocalContainerEntityManagerFactoryBean в базе billing
+     * Получение LocalContainerEntityManagerFactoryBean в базе sed
      *
      * @param builder - builder for JPA EntityManagerFactory instances
      * @param dataSource - factory for connections to the physical data source

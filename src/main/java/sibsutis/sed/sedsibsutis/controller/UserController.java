@@ -11,21 +11,29 @@ import sibsutis.sed.sedsibsutis.service.security.UserService;
 
 import javax.validation.Valid;
 
-import java.security.GeneralSecurityException;
 
 import static sibsutis.sed.sedsibsutis.controller.UserController.USER_URL;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = USER_URL)
+@RequestMapping(USER_URL)
 public class UserController {
 
     public static final String USER_URL = "/user";
 
+    private static final String USER_URL_REGISTER = "/register";
+
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity registerUser(@Valid @RequestBody final NewUser newUser) throws GeneralSecurityException {
+    /**
+     * Метод для заведения нового пользователя в систему (только Админ)
+     * @param newUser информация о новом пользователе
+     * @return Status??
+     * @throws Exception
+     */
+//    TODO: сделать только для админа
+    @PostMapping(USER_URL_REGISTER)
+    public ResponseEntity registerUser(@Valid @RequestBody final NewUser newUser) throws Exception {
         userService.register(newUser);
         return null;
     }

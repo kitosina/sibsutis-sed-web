@@ -3,7 +3,11 @@ package sibsutis.sed.sedsibsutis.model.entity.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,9 +22,11 @@ import java.util.Set;
  * @see Table
  * @see Entity
  */
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
+@Accessors(chain = true)
 @Entity
+@ToString
 @Table(name = "users", schema = "security")
 public class UserSystem {
 
