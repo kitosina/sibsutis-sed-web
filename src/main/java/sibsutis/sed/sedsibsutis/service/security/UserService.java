@@ -1,10 +1,7 @@
 package sibsutis.sed.sedsibsutis.service.security;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.operator.OperatorCreationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,15 +17,10 @@ import sibsutis.sed.sedsibsutis.model.entity.security.Role;
 import sibsutis.sed.sedsibsutis.model.entity.security.UserSystem;
 import sibsutis.sed.sedsibsutis.repostiory.UserSecretRepository;
 import sibsutis.sed.sedsibsutis.repostiory.security.UserRepository;
-import sibsutis.sed.sedsibsutis.service.crypto.Crypto;
-import sibsutis.sed.sedsibsutis.service.crypto.GOSTCrypto;
+import sibsutis.sed.sedsibsutis.service.crypto.RSACrypto;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
-import java.security.Security;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -99,7 +91,7 @@ public class UserService implements UserDetailsService {
     }
 
     private UserSecret convertUserNewToUserSecret(final NewUser newUser) throws GeneralSecurityException {
-        final Crypto crypto = new GOSTCrypto();
+        final RSACrypto crypto = new RSACrypto();
         final KeyPair keyPair = crypto.generateKeyPair();
         return new UserSecret().setEmail(newUser.getEmail())
                 .setKeyPublic(keyPair.getPublic().getEncoded())
