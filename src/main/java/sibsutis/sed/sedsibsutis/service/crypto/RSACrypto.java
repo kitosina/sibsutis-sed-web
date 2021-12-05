@@ -3,6 +3,7 @@ package sibsutis.sed.sedsibsutis.service.crypto;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import sibsutis.sed.sedsibsutis.model.dto.crypto.DecryptDocumentInfo;
 import sibsutis.sed.sedsibsutis.model.dto.crypto.EncryptDocumentInfo;
 
@@ -24,7 +25,8 @@ import java.security.SecureRandom;
 public class RSACrypto extends AESCrypto {
 
 
-    public KeyPair generateKeyPair() throws GeneralSecurityException {
+    @SneakyThrows
+    public KeyPair generateKeyPair() {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
         SecureRandom random = SecureRandom.getInstanceStrong();
         generator.initialize(2048, random);

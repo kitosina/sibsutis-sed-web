@@ -12,7 +12,7 @@ import java.security.Security;
 @SpringBootApplication
 @PropertySource(value = "classpath:sed-web.properties", encoding = "UTF-8")
 @ComponentScan(basePackages = {"sibsutis.sed.sedsibsutis"})
-@EnableJpaRepositories(basePackages = "sibsutis.sed.sedsibsutis.repostiory")
+@EnableJpaRepositories(basePackages = "sibsutis.sed.sedsibsutis.repository")
 @EntityScan(basePackages = "sibsutis.sed.sedsibsutis.model.entity")
 public class SedSibsutisApplication {
 

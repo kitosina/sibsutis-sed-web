@@ -12,11 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sibsutis.sed.sedsibsutis.model.dto.security.NewUser;
-import sibsutis.sed.sedsibsutis.model.entity.UserSecret;
+import sibsutis.sed.sedsibsutis.model.entity.UserSecretEntity;
 import sibsutis.sed.sedsibsutis.model.entity.security.Role;
-import sibsutis.sed.sedsibsutis.model.entity.security.UserSystem;
-import sibsutis.sed.sedsibsutis.repostiory.UserSecretRepository;
-import sibsutis.sed.sedsibsutis.repostiory.security.UserRepository;
+import sibsutis.sed.sedsibsutis.model.entity.security.UserSystemEntity;
+import sibsutis.sed.sedsibsutis.repository.UserSecretRepository;
+import sibsutis.sed.sedsibsutis.repository.security.UserRepository;
 import sibsutis.sed.sedsibsutis.service.crypto.RSACrypto;
 
 import java.security.GeneralSecurityException;
@@ -65,9 +65,9 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserSystem userSystem = userRepository.findByEmail(email)
+        UserSystemEntity userSystemEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден в системе"));
-        return new User(userSystem.getEmail(), userSystem.getPassword(), listAuthority(userSystem.getRoles()));
+        return new User(userSystemEntity.getEmail(), userSystemEntity.getPassword(), listAuthority(userSystemEntity.getRoles()));
     }
 
     /**
@@ -83,17 +83,17 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    private UserSystem convertUserNewToUserSystem(final NewUser newUser) {
+    private UserSystemEntity convertUserNewToUserSystem(final NewUser newUser) {
         final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return new UserSystem().setEmail(newUser.getEmail())
+        return new UserSystemEntity().setEmail(newUser.getEmail())
                 .setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()))
                 .setRoles(Collections.singleton(Role.USER));
     }
 
-    private UserSecret convertUserNewToUserSecret(final NewUser newUser) throws GeneralSecurityException {
+    private UserSecretEntity convertUserNewToUserSecret(final NewUser newUser) throws GeneralSecurityException {
         final RSACrypto crypto = new RSACrypto();
         final KeyPair keyPair = crypto.generateKeyPair();
-        return new UserSecret().setEmail(newUser.getEmail())
+        return new UserSecretEntity().setEmail(newUser.getEmail())
                 .setKeyPublic(keyPair.getPublic().getEncoded())
                 .setKeyPrivate(keyPair.getPrivate().getEncoded());
     }

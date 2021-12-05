@@ -28,7 +28,7 @@ import java.util.Set;
 @Entity
 @ToString
 @Table(name = "users", schema = "security")
-public class UserSystem {
+public class UserSystemEntity {
 
     /**
      * An id field for DB identification

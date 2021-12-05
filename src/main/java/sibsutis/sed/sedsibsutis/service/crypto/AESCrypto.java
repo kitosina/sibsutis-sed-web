@@ -7,12 +7,12 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AESCrypto {
+public abstract class AESCrypto {
 
     @SneakyThrows
     public SecretKey generateSecreteKeyAes() {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(256); // for example
+        keyGen.init(256);
         SecretKey secretKey = keyGen.generateKey();
         return secretKey;
     }

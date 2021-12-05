@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Accessors(chain = true)
 @Entity
 @Table(name = "user_secret", schema = "public")
-public class UserSecret {
+public class UserSecretEntity {
 
     @Id
     @Column(name = "email", nullable = false)

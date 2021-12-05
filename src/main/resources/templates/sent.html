@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- JavaScript Bundle with Popper -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+
+    <script type="text/javascript" src="script/sent.js"></script>
+</head>
+<body ng-app="SENT" ng-controller="SENT_CONTROLLER">
+<header data-ng-init="init()">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <nav class="navbar navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="/home_page">
+                        <img src="../static/image/sibsutis_picture.png" alt="" width="100" height="100">
+                    </a>
+                </div>
+            </nav>
+            <a id="logo" style="font-style: italic" class="col-md-3 navbar-brand bg-light">SED-SIBSUTIS</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/sent">Отправленные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/incoming">Входящие</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/signed">Подписанные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/refusal">Отказанные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/send">Отправить документ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</br>
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Название документа</th>
+            <th scope="col">Email получателя</th>
+            <th scope="col">Скачать</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="sent in sentAll">
+            <td id="value.document_name">{{sent.document_name}}</td>
+            <td id="value.email_receiver">{{sent.email_receiver}}</td>
+            <td>
+                <button id="sentButton" ng-click="sentDocument(sent)" type="button" class="btn btn-primary">Скачать</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
