@@ -41,6 +41,8 @@ app.controller("INCOMING_CONTROLLER",function($scope, $http) {
                 document_name: incoming.document_name,
                 email_receiver: incoming.email_sender
             },
+        }).then(function (response) {
+            window.location.reload()
         });
     }
 
@@ -53,6 +55,8 @@ app.controller("INCOMING_CONTROLLER",function($scope, $http) {
                 document_name: incoming.document_name,
                 email_receiver: incoming.email_sender
             },
+        }).then(function (response) {
+            window.location.reload()
         });
     }
 });

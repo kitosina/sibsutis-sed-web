@@ -11,6 +11,7 @@ import sibsutis.sed.sedsibsutis.model.dto.document.IncomingDocument;
 import sibsutis.sed.sedsibsutis.model.dto.document.IncomingDocumentEncrypt;
 import sibsutis.sed.sedsibsutis.model.dto.document.SentDocument;
 import sibsutis.sed.sedsibsutis.model.dto.document.SendDocumentEncrypt;
+import sibsutis.sed.sedsibsutis.model.dto.document.SignDocumentEncrypt;
 import sibsutis.sed.sedsibsutis.model.entity.UserSecretEntity;
 import sibsutis.sed.sedsibsutis.model.entity.document.SendDocumentEntity;
 import sibsutis.sed.sedsibsutis.repository.UserSecretRepository;
@@ -116,6 +117,26 @@ public class DocumentService {
         DecryptDocumentInfo decryptDocumentInfo = rsaCrypto.decryptData(
                 incomingDocumentEncrypt.getEncryptDocument(),
                 incomingDocumentEncrypt.getEncryptSecretKey(),
+                KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(userSecret.getKeyPrivate()))
+        );
+
+        return decryptDocumentInfo.getDecryptDocument();
+    }
+
+    @SneakyThrows
+    public byte[] signDocumentUser(String documentName, boolean signFlag) {
+        String emailReceiver =  userInfoService.getEmailAuthUser();
+        // Получаем документ (зашифрованный)
+        SignDocumentEncrypt signDocumentEncrypt =
+                sedDocumentConnector.signSedDocumentRequest(documentName, emailReceiver, signFlag);
+        // Ищем приватный ключ получателя
+        UserSecretEntity userSecret = userSecretRepository.findByEmail(userInfoService.getEmailAuthUser())
+                .orElseThrow(() -> new RuntimeException("Ошибка поиска ключей"));
+
+        // Дешифруем сообщение
+        DecryptDocumentInfo decryptDocumentInfo = rsaCrypto.decryptData(
+                signDocumentEncrypt.getEncryptDocument(),
+                signDocumentEncrypt.getEncryptSecretKey(),
                 KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(userSecret.getKeyPrivate()))
         );
         return decryptDocumentInfo.getDecryptDocument();

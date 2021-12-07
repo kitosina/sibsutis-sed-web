@@ -2,6 +2,7 @@ package sibsutis.sed.sedsibsutis.service.document;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import sibsutis.sed.sedsibsutis.model.dto.document.IncomingDocumentEncrypt;
 import sibsutis.sed.sedsibsutis.model.dto.document.SendDocumentEncrypt;
 import sibsutis.sed.sedsibsutis.model.dto.document.SignDocument;
 import sibsutis.sed.sedsibsutis.model.entity.UserSecretEntity;
+import sibsutis.sed.sedsibsutis.model.entity.document.SendDocumentEntity;
 import sibsutis.sed.sedsibsutis.model.entity.document.SignDocumentEntity;
 import sibsutis.sed.sedsibsutis.repository.UserSecretRepository;
 import sibsutis.sed.sedsibsutis.repository.document.SendDocumentRepository;
@@ -31,12 +33,14 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class SignService {
 
     private final SignDocumentRepository signDocumentRepository;
     private final UserInfoService userInfoService;
     private final SedDocumentConnector sedDocumentConnector;
     private final UserSecretRepository userSecretRepository;
+    private final SendDocumentRepository sendDocumentRepository;
 
     private RSACrypto rsaCrypto;
 
@@ -88,7 +92,10 @@ public class SignService {
         signDocumentEntity.setEmailReceiver(userSecretReceiver.getEmail());
         signDocumentEntity.setEmailSender(emailSender);
         signDocumentRepository.save(signDocumentEntity);
-//        TODO удалить из подписантов документ чтоб не видели
+
+        log.info("Delete sender {} {} {}", signDocument.getEmailReceiver(), signDocument.getDocumentName(), emailSender);
+        // Удаляем из подписи для данного клиента (фактически оно уже подписано), тут надо предумать флаг у отправителя тоже пропадает письмо
+        sendDocumentRepository.updateReceiverSign(signDocument.getEmailReceiver(), signDocument.getDocumentName(), emailSender);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -134,6 +141,9 @@ public class SignService {
         signDocumentEntity.setEmailReceiver(userSecretReceiver.getEmail());
         signDocumentEntity.setEmailSender(emailSender);
         signDocumentRepository.save(signDocumentEntity);
+
+        // Удаляем из подписи для данного клиента (фактически оно уже подписано), тут надо предумать флаг у отправителя тоже пропадает письмо
+        sendDocumentRepository.updateReceiverSign(signDocument.getEmailReceiver(), signDocument.getDocumentName(), emailSender);
     }
 
     public List<SignDocument> getSignDocument(boolean signFlag) {

@@ -30,6 +30,8 @@ public class DocumentController {
     private static final String DOCUMENT_SEND_URL = "/send";
     private static final String DOCUMENT_SENT_URL = "/sent";
     private static final String DOCUMENT_INCOMING_URL = "/incoming";
+    private static final String DOCUMENT_SIGN_URL = "/sign";
+
     /**
      * URL для получения списка отправленных документов для auth user-а
      */
@@ -82,6 +84,22 @@ public class DocumentController {
         headers.setContentDispositionFormData(documentName, documentName);
         return new ResponseEntity<>(
                 documentService.incomingDocumentUserFile(documentName), headers, HttpStatus.OK);
+    }
+
+    /**
+     * URL для получения документов с подписью (отказ и подписанно)
+     * @return
+     */
+    @GetMapping(DOCUMENT_SIGN_URL)
+    public ResponseEntity signDocumentUser(@RequestParam("document_name") String documentName,
+                                           @RequestParam("sign_flag") boolean signFlag) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.set("Content-Disposition", "inline");
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        headers.setContentDispositionFormData(documentName, documentName);
+        return new ResponseEntity<>(
+                documentService.signDocumentUser(documentName, signFlag), headers, HttpStatus.OK);
     }
 
     /**

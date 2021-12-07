@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 import sibsutis.sed.sedsibsutis.model.dto.document.IncomingDocumentEncrypt;
 import sibsutis.sed.sedsibsutis.model.dto.document.SendDocumentEncrypt;
+import sibsutis.sed.sedsibsutis.model.dto.document.SignDocumentEncrypt;
 import sibsutis.sed.sedsibsutis.model.entity.document.SendDocumentEntity;
 
 @RequiredArgsConstructor
@@ -62,5 +63,17 @@ public class SedDocumentConnector {
                 .exchange()
                 .block();
         return response.bodyToMono(IncomingDocumentEncrypt.class).block();
+    }
+
+    public SignDocumentEncrypt signSedDocumentRequest(String documentName, String emailReceiver, boolean signFlag) {
+        ClientResponse response = webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/document/sign")
+                        .queryParam("document_name", documentName)
+                        .queryParam("email_receiver", emailReceiver)
+                        .queryParam("sign_flag", signFlag)
+                        .build())
+                .exchange()
+                .block();
+        return response.bodyToMono(SignDocumentEncrypt.class).block();
     }
 }

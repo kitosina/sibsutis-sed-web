@@ -17,45 +17,22 @@ app.controller("SIGN_CONTROLLER",function($scope, $http) {
         })
     }
 
-    // $scope.incomingDocument = function (incoming) {
-    //     var url = '/document/incoming';
-    //     $http({
-    //         url: url,
-    //         method: 'GET',
-    //         params:{
-    //             document_name: incoming.document_name,
-    //         },
-    //         responseType:'arraybuffer'
-    //     }).then(function (response) {
-    //         var file = new Blob([response.data], { type: 'application/pdf' });
-    //         var fileURL = URL.createObjectURL(file);
-    //
-    //         window.open(fileURL);
-    //     })
-    // }
+    $scope.signedDocument = function (signed) {
+        var url = '/document/sign';
+        $http({
+            url: url,
+            method: 'GET',
+            params:{
+                document_name: signed.document_name,
+                sign_flag: true
+            },
+            responseType:'arraybuffer'
+        }).then(function (response) {
+            var file = new Blob([response.data], { type: 'application/pdf' });
+            var fileURL = URL.createObjectURL(file);
 
-    // $scope.sentDocumentAndSign = function (incoming) {
-    //     console.log("sign")
-    //     var url = '/sign/contract';
-    //     $http({
-    //         url: url,
-    //         method: 'POST',
-    //         data: {
-    //             document_name: incoming.document_name,
-    //             email_receiver: incoming.email_sender
-    //         },
-    //     });
-    // }
-    //
-    // $scope.sentDocumentAndNoSing = function (incoming) {
-    //     var url = '/sign/no/contract';
-    //     $http({
-    //         url: url,
-    //         method: 'POST',
-    //         data: {
-    //             document_name: incoming.document_name,
-    //             email_receiver: incoming.email_sender
-    //         },
-    //     });
-    // }
+            window.open(fileURL);
+        })
+    }
+
 });
