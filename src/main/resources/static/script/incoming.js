@@ -30,4 +30,29 @@ app.controller("INCOMING_CONTROLLER",function($scope, $http) {
             window.open(fileURL);
         })
     }
+
+    $scope.sentDocumentAndSign = function (incoming) {
+        console.log("sign")
+        var url = '/sign/contract';
+        $http({
+            url: url,
+            method: 'POST',
+            data: {
+                document_name: incoming.document_name,
+                email_receiver: incoming.email_sender
+            },
+        });
+    }
+
+    $scope.sentDocumentAndNoSing = function (incoming) {
+        var url = '/sign/no/contract';
+        $http({
+            url: url,
+            method: 'POST',
+            data: {
+                document_name: incoming.document_name,
+                email_receiver: incoming.email_sender
+            },
+        });
+    }
 });

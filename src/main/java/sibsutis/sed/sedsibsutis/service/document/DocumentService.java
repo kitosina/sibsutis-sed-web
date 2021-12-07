@@ -15,7 +15,9 @@ import sibsutis.sed.sedsibsutis.model.entity.UserSecretEntity;
 import sibsutis.sed.sedsibsutis.model.entity.document.SendDocumentEntity;
 import sibsutis.sed.sedsibsutis.repository.UserSecretRepository;
 import sibsutis.sed.sedsibsutis.repository.document.SendDocumentRepository;
+import sibsutis.sed.sedsibsutis.repository.document.SignDocumentRepository;
 import sibsutis.sed.sedsibsutis.service.crypto.RSACrypto;
+import sibsutis.sed.sedsibsutis.service.pdf.SignImage;
 import sibsutis.sed.sedsibsutis.service.security.UserInfoService;
 
 import javax.annotation.PostConstruct;
@@ -78,6 +80,7 @@ public class DocumentService {
                 .encryptDocumentInfo(encryptDocumentInfo)
                 .emailReceiver(emailReceiver)
                 .build());
+
     }
 
     public List<SentDocument> sentDocumentUser() {

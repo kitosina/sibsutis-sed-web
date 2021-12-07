@@ -21,14 +21,33 @@ public class SedDocumentConnector {
     @Value("${sed.document.send.url}")
     private String sendUrl;
 
-    @Value("${sed.document.incoming.url}")
-    private String incomingUrl;
+    @Value("${sed.document.sign.url}")
+    private String singUrl;
+
+    @Value("${sed.document.no.sign.url}")
+    private String noSingUrl;
 
     private final WebClient webClient;
 
     public void sendSedDocumentRequest(final SendDocumentEncrypt sendDocument) {
         webClient.post()
                 .uri(sendUrl)
+                .bodyValue(sendDocument)
+                .exchange()
+                .block();
+    }
+
+    public void singSedDocumentRequest(final SendDocumentEncrypt sendDocument) {
+        webClient.post()
+                .uri(singUrl)
+                .bodyValue(sendDocument)
+                .exchange()
+                .block();
+    }
+
+    public void noSingSedDocumentRequest(final SendDocumentEncrypt sendDocument) {
+        webClient.post()
+                .uri(noSingUrl)
                 .bodyValue(sendDocument)
                 .exchange()
                 .block();

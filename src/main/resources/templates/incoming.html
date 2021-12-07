@@ -21,7 +21,7 @@
             <nav class="navbar navbar-light bg-light">
                 <div class="container">
                     <a class="navbar-brand" href="/home_page">
-                        <img src="../static/image/sibsutis_picture.png" alt="" width="100" height="100">
+                        <img src="/image/sibsutis_picture.png" alt="" width="100" height="100">
                     </a>
                 </div>
             </nav>
@@ -56,6 +56,7 @@
             <th scope="col">Email отправителя</th>
             <th scope="col">Скачать</th>
             <th scope="col">Подписать</th>
+            <th scope="col">Отказать</th>
         </tr>
         </thead>
         <tbody>
@@ -66,7 +67,10 @@
                 <button ng-click="incomingDocument(incoming)" type="button" class="btn btn-primary">Скачать</button>
             </td>
             <td>
-                <button ng-click="sentDocument(sent)" type="button" class="btn btn-primary">Подписать и отправить</button>
+                <button ng-click="sentDocumentAndSign(incoming)" type="button" class="btn btn-primary">Подписать и отправить</button>
+            </td>
+            <td>
+                <button ng-click="sentDocumentAndNoSing(incoming)" type="button" class="btn btn-primary">Отказать и отправить</button>
             </td>
         </tr>
         </tbody>
