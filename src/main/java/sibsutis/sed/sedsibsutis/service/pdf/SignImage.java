@@ -7,9 +7,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.springframework.security.core.parameters.P;
-import sun.font.FontDesignMetrics;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
