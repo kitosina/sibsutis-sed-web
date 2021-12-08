@@ -5,50 +5,92 @@
     <title>Title</title>
 
     <!-- JavaScript Bundle with Popper -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
 
+    <link href="style/headers.css" rel="stylesheet">
     <script type="text/javascript" src="script/incoming.js"></script>
 </head>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="i-send" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M2 16 L30 2 16 30 12 20 Z M30 2 L12 20"></path>
+    </symbol>
+    <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+    </symbol>
+    <symbol id="i-inbox" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M2 15 L2 25 30 25 30 15 26 7 6 7 Z M2 15 L10 15 C10 15 11 20 16 20 21 20 22 15 22 15 L30 15"/>
+    </symbol>
+    <symbol id="i-checkmark" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M2 20 L12 28 30 4"/>
+    </symbol>
+    <symbol id="i-ban" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <circle cx="16" cy="16" r="14" />
+        <path d="M6 6 L26 26" />
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M2 26 L30 26 30 6 2 6 Z M2 6 L16 16 30 6" />
+    </symbol>
+</svg>
 <body ng-app="INCOMING" ng-controller="INCOMING_CONTROLLER">
 <header data-ng-init="init()">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="/home_page">
-                        <img src="/image/sibsutis_picture.png" alt="" width="100" height="100">
-                    </a>
-                </div>
-            </nav>
-            <a id="logo" style="font-style: italic" class="col-md-3 navbar-brand bg-light">SED-SIBSUTIS</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-3 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/sent">Отправленные</a>
+    <div class="px-3 py-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" href="/home_page">
+                    <img src="image/sibsutis_picture.png" width="52" height="52">
+                </a>
+                <span class="fs-4 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white" style="font-family: 'Mongolian Baiti'">SED SIBSUTIS</span>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Поиск" aria-label="Search">
+                </form>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                    <li>
+                        <a href="/incoming" class="nav-link text-white">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#i-inbox"/></svg>
+                            Входящие
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/incoming">Входящие</a>
+                    <li>
+                        <a href="/sent" class="nav-link text-white">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#i-mail"/></svg>
+                            Отправленные
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/signed">Подписанные</a>
+                    <li>
+                        <a href="/signed" class="nav-link text-white">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#i-checkmark"/></svg>
+                            Подписанные
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/refusal">Отказанные</a>
+                    <li>
+                        <a href="/refusal" class="nav-link text-white">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#i-ban"/></svg>
+                            Отказанные
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/send">Отправить документ</a>
+                    <li>
+                        <a href="/send" class="nav-link text-white">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#i-send"/></svg>
+                            Отправить документ
+                        </a>
                     </li>
                 </ul>
+                <span id="login_button" class="navbar-text">
+                    <b><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></b>
+                    <b><a id="user_name" th:if="${#httpServletRequest.remoteUser != null}">Вы вошли как: [[${#httpServletRequest.remoteUser}]]
+                        <a id="logout" href="/logout">Выйти</a>
+                    </a></b>
+                </span>
             </div>
         </div>
-    </nav>
+    </div>
 </header>
-<div class="container">
+<div class="container mt-4">
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -64,13 +106,13 @@
             <td id="value.document_name">{{incoming.document_name}}</td>
             <td id="value.email_sender">{{incoming.email_sender}}</td>
             <td>
-                <button ng-click="incomingDocument(incoming)" type="button" class="btn btn-primary">Скачать</button>
+                <button ng-click="incomingDocument(incoming)" type="button" class="btn btn-dark">Скачать</button>
             </td>
             <td>
-                <button ng-click="sentDocumentAndSign(incoming)" type="button" class="btn btn-primary">Подписать и отправить</button>
+                <button ng-click="sentDocumentAndSign(incoming)" type="button" class="btn btn-dark">Подписать и отправить</button>
             </td>
             <td>
-                <button ng-click="sentDocumentAndNoSing(incoming)" type="button" class="btn btn-primary">Отказать и отправить</button>
+                <button ng-click="sentDocumentAndNoSing(incoming)" type="button" class="btn btn-dark">Отказать и отправить</button>
             </td>
         </tr>
         </tbody>

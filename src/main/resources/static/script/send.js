@@ -1,7 +1,22 @@
 var app = angular.module("SEND",[]);
 
 app.controller("SEND_CONTROLLER",function($scope, $http) {
-    $scope.sendDocument = function () {
+
+    $scope.receiverAll = []
+
+    $scope.init = function () {
+        var url = '/user/receivers';
+        console.log("request")
+        $http({
+            url: url,
+            method: 'GET',
+        }).then(function (response) {
+            console.dir(response.data)
+            $scope.receiverAll = response.data;
+        })
+    }
+
+    $scope.sendDocument = function (receiver) {
         var data = new FormData();
         var url = '/document/send';
 
@@ -20,6 +35,11 @@ app.controller("SEND_CONTROLLER",function($scope, $http) {
             headers : {
                 'Content-Type': undefined
             }
+        }).then(function (response) {
+            alert("Документ отправлен")
+            window.location.reload()
+        }).error(function (response) {
+            alert("Ошибка отправки документа")
         });
     }
 

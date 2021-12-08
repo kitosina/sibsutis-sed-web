@@ -23,6 +23,7 @@ import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +36,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserSecretRepository userSecretRepository;
+    private final UserInfoService userInfoService;
 
     /**
      * Метод для регистрации пользователя в систем
@@ -68,6 +70,14 @@ public class UserService implements UserDetailsService {
         UserSystemEntity userSystemEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден в системе"));
         return new User(userSystemEntity.getEmail(), userSystemEntity.getPassword(), listAuthority(userSystemEntity.getRoles()));
+    }
+
+    public List<String> getAllUserReceiver() {
+        return userRepository.findAll()
+                .stream()
+                .map(userSystemEntity -> userSystemEntity.getEmail())
+                .filter(user -> !user.equals(userInfoService.getEmailAuthUser()))
+                .collect(Collectors.toList());
     }
 
     /**

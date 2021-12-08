@@ -42,7 +42,10 @@ app.controller("INCOMING_CONTROLLER",function($scope, $http) {
                 email_receiver: incoming.email_sender
             },
         }).then(function (response) {
+            alert("Документ отправлен")
             window.location.reload()
+        }).error(function (response) {
+            alert("Ошибка подписи документа")
         });
     }
 
@@ -56,7 +59,10 @@ app.controller("INCOMING_CONTROLLER",function($scope, $http) {
                 email_receiver: incoming.email_sender
             },
         }).then(function (response) {
+            alert("Документ отправлен")
             window.location.reload()
+        }).error(function (response) {
+            alert("Ошибка подписи документа")
         });
     }
 });

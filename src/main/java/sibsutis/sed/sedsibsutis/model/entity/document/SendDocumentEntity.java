@@ -31,4 +31,7 @@ public class SendDocumentEntity {
     @Column(name = "document")
     private byte[] document;
 
+    @Column(name = "email_receiver_fact")
+    private String emailReceiverFact;
+
 }

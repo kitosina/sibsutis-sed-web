@@ -2,6 +2,7 @@ package sibsutis.sed.sedsibsutis.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,8 @@ public class UserController {
 
     private static final String USER_URL_REGISTER = "/register";
 
+    private static final String ALL_USER_RECEIVER = "/receivers";
+
     private final UserService userService;
 
     /**
@@ -36,5 +39,10 @@ public class UserController {
     public ResponseEntity registerUser(@Valid @RequestBody final NewUser newUser) throws Exception {
         userService.register(newUser);
         return null;
+    }
+
+    @GetMapping(ALL_USER_RECEIVER)
+    public ResponseEntity allUserReceiver() {
+        return ResponseEntity.ok(userService.getAllUserReceiver());
     }
 }

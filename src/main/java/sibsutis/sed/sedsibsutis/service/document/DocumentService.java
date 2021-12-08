@@ -148,6 +148,7 @@ public class DocumentService {
         sendDocumentEntity.setDocumentName(documentName);
         sendDocumentEntity.setEmailSender(userInfoService.getEmailAuthUser());
         sendDocumentEntity.setEmailReceiver(emailReceiver);
+        sendDocumentEntity.setEmailReceiverFact(emailReceiver);
         sendDocumentEntity.setDocument(document);
         return sendDocumentEntity;
     }
@@ -158,7 +159,7 @@ public class DocumentService {
         for (SendDocumentEntity sendDocumentEntity : sendDocumentEntities) {
             sentDocuments.add(SentDocument.builder()
                     .documentName(sendDocumentEntity.getDocumentName())
-                    .emailReceiver(sendDocumentEntity.getEmailReceiver())
+                    .emailReceiver(sendDocumentEntity.getEmailReceiverFact())
                     .build());
         }
         return sentDocuments;
