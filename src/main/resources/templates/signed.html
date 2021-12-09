@@ -45,7 +45,9 @@
                 </a>
                 <span class="fs-4 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white" style="font-family: 'Mongolian Baiti'">SED SIBSUTIS</span>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Поиск" aria-label="Search">
+                    <input ng-model="search.SN" type="search" class="form-control form-control-dark" placeholder="Название документа" aria-label="Search">
+                    <br>
+                    <input ng-model="search.EMAIL" type="search" class="form-control form-control-dark" placeholder="Email отправителя" aria-label="Search">
                 </form>
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
@@ -99,7 +101,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="signed in signedAll">
+        <tr ng-repeat="signed in signedAll| filter: {document_name: search.SN}|filter: {email_sender: search.EMAIL}">
             <td id="value.document_name">{{signed.document_name}}</td>
             <td id="value.email_sender">{{signed.email_sender}}</td>
             <td>
