@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/home_page", "/incoming", "/refusal", "/send", "/sent", "/signed").hasAuthority("USER")
+                .antMatchers("/home_page", "/incoming", "/refusal", "/send", "/sent", "/signed", "/contragent").hasAuthority("USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")
