@@ -41,6 +41,7 @@ public class SignService {
     private final SedDocumentConnector sedDocumentConnector;
     private final UserSecretRepository userSecretRepository;
     private final SendDocumentRepository sendDocumentRepository;
+    private final SignImage signImage;
 
     private RSACrypto rsaCrypto;
 
@@ -66,7 +67,7 @@ public class SignService {
                 KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(userSecret.getKeyPrivate()))
         );
         // Подписываем документ
-        byte[] signTextImg = new SignImage().createSignTextImg(decryptDocumentInfo.getDecryptDocument(), userSecret.getEmail());
+        byte[] signTextImg = signImage.createSignTextImg(decryptDocumentInfo.getDecryptDocument(), userSecret.getEmail());
 
         UserSecretEntity userSecretReceiver = userSecretRepository.findByEmail(signDocument.getEmailReceiver())
                 .orElseThrow(() -> new RuntimeException("Ошибка поиска ключей"));
@@ -115,7 +116,7 @@ public class SignService {
                 KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(userSecret.getKeyPrivate()))
         );
         // Подписываем(отказываем в подписи) документ
-        byte[] signTextImg = new SignImage().createNoSignTextImg(decryptDocumentInfo.getDecryptDocument());
+        byte[] signTextImg = signImage.createNoSignTextImg(decryptDocumentInfo.getDecryptDocument(), userSecret.getEmail());
 
         UserSecretEntity userSecretReceiver = userSecretRepository.findByEmail(signDocument.getEmailReceiver())
                 .orElseThrow(() -> new RuntimeException("Ошибка поиска ключей"));
