@@ -56,9 +56,9 @@ public class SignImage {
 
         contentStream.setNonStrokingColor(0,191,255);//blue
         contentStream.fillRect(cursorX, cursorY, 3, 125);
-        contentStream.fillRect(cursorX, cursorY, 400, 3);
-        contentStream.fillRect(cursorX + 400 , cursorY, 3, 125);
-        contentStream.fillRect(cursorX , cursorY + 125 , 403, 3);
+        contentStream.fillRect(cursorX, cursorY, 450, 3);
+        contentStream.fillRect(cursorX + 450 , cursorY, 3, 125);
+        contentStream.fillRect(cursorX , cursorY + 125 , 453, 3);
         //draw text
         contentStream.setNonStrokingColor(0,191,255); //blue
         contentStream.beginText();
@@ -113,9 +113,9 @@ public class SignImage {
 
         contentStream.setNonStrokingColor(255, 0, 0);//red
         contentStream.fillRect(cursorX, cursorY, 3, 125);
-        contentStream.fillRect(cursorX, cursorY, 400, 3);
-        contentStream.fillRect(cursorX + 400 , cursorY, 3, 125);
-        contentStream.fillRect(cursorX , cursorY + 125 , 403, 3);
+        contentStream.fillRect(cursorX, cursorY, 450, 3);
+        contentStream.fillRect(cursorX + 450 , cursorY, 3, 125);
+        contentStream.fillRect(cursorX , cursorY + 125 , 453, 3);
 //draw text
         contentStream.setNonStrokingColor(255, 0, 0); //red
         contentStream.beginText();
