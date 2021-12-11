@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Контрагенты</title>
     <meta charset="UTF-8">
-    <title>Входящие</title>
-
     <link href="style/headers.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -12,7 +11,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
 
-    <script type="text/javascript" src="script/signed.js"></script>
+    <script type="text/javascript" src="script/contragent.js"></script>
 </head>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="i-send" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -37,20 +36,23 @@
     <symbol id="i-portfolio" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
         <path d="M29 17 L29 28 3 28 3 17 M2 8 L30 8 30 16 C30 16 24 20 16 20 8 20 2 16 2 16 L2 8 Z M16 22 L16 18 M20 8 C20 8 20 4 16 4 12 4 12 8 12 8" />
     </symbol>
+    <symbol id="i-work" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M30 8 L2 8 2 26 30 26 Z M20 8 C20 8 20 4 16 4 12 4 12 8 12 8 M8 26 L8 8 M24 26 L24 8" />
+    </symbol>
 </svg>
-<body ng-app="SIGN" ng-controller="SIGN_CONTROLLER">
+
+<body ng-app="CONTRAGENT" ng-controller="CONTRAGENT_CONTROLLER">
 <header data-ng-init="init()">
     <div class="px-3 py-2 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" href="/home_page">
                     <img src="image/sibsutis_picture.png" width="52" height="52">
+<!--                    <svg class="bi d-block mx-auto mb-1" width="52" height="52"><use xlink:href="#i-work"/>></svg>-->
                 </a>
                 <span class="fs-4 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white" style="font-family: 'Mongolian Baiti'">SED SIBSUTIS</span>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input ng-model="search.SN" type="search" class="form-control form-control-dark" placeholder="Название документа" aria-label="Search">
-                    <br>
-                    <input ng-model="search.EMAIL" type="search" class="form-control form-control-dark" placeholder="Email отправителя" aria-label="Search">
+                    <input ng-model="search.EMAIL" type="search" class="form-control form-control-dark" placeholder="Email контрагента" aria-label="Search">
                 </form>
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
@@ -100,22 +102,27 @@
         </div>
     </div>
 </header>
+
 <div class="container mt-4">
-    <table class="table table-success">
+    <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">Название документа</th>
-            <th scope="col">Email отправителя</th>
-            <th scope="col">Скачать</th>
+            <th scope="col">Email</th>
+            <th scope="col">Университет</th>
+            <th scope="col">Факультет</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">ИНН</th>
+            <th scope="col">Адрес</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="signed in signedAll| filter: {document_name: search.SN}|filter: {email_sender: search.EMAIL}">
-            <td id="value.document_name">{{signed.document_name}}</td>
-            <td id="value.email_sender">{{signed.email_sender}}</td>
-            <td>
-                <button ng-click="signedDocument(signed)" type="button" class="btn btn-dark">Скачать</button>
-            </td>
+        <tr ng-repeat="contragent in contragentAll| filter: {email: search.EMAIL}">
+            <td><b>{{contragent.email}}</b></td>
+            <td>{{contragent.university}}</td>
+            <td>{{contragent.faculty}}</td>
+            <td>{{contragent.fio}}</td>
+            <td>{{contragent.inn}}</td>
+            <td>{{contragent.address}}</td>
         </tr>
         </tbody>
     </table>

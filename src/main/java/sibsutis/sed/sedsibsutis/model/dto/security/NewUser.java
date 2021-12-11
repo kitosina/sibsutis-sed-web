@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 @Data
 public class NewUser {
@@ -30,4 +31,25 @@ public class NewUser {
     @JsonProperty("password")
     private String password;
 
+    @JsonProperty("contragent")
+    private ContragentInfo contragentInfo;
+
+    @Data
+    public static class ContragentInfo {
+
+        @JsonProperty("address")
+        private String address;
+
+        @JsonProperty("university")
+        private String university;
+
+        @JsonProperty("faculty")
+        private String faculty;
+
+        @JsonProperty("INN")
+        private String inn;
+
+        @JsonProperty("FIO")
+        private String fio;
+    }
 }

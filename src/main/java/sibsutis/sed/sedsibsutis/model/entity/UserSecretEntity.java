@@ -20,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "user_secret", schema = "public")
 public class UserSecretEntity {
 
+//    FIXME: email не может гарантировать уникальность!!!
     @Id
     @Column(name = "email", nullable = false)
     private String email;

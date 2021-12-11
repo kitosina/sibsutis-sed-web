@@ -40,4 +40,9 @@ public class WebController {
         return "signed";
     }
 
+    @GetMapping("/contragent")
+    public String contragent() {
+        return "contragent";
+    }
+
 }

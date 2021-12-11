@@ -12,9 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sibsutis.sed.sedsibsutis.model.dto.security.NewUser;
+import sibsutis.sed.sedsibsutis.model.dto.user.Contragent;
+import sibsutis.sed.sedsibsutis.model.entity.ContragentEntity;
 import sibsutis.sed.sedsibsutis.model.entity.UserSecretEntity;
 import sibsutis.sed.sedsibsutis.model.entity.security.Role;
 import sibsutis.sed.sedsibsutis.model.entity.security.UserSystemEntity;
+import sibsutis.sed.sedsibsutis.repository.ContragentRepository;
 import sibsutis.sed.sedsibsutis.repository.UserSecretRepository;
 import sibsutis.sed.sedsibsutis.repository.security.UserRepository;
 import sibsutis.sed.sedsibsutis.service.crypto.RSACrypto;
@@ -35,7 +38,7 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final UserSecretRepository userSecretRepository;
+    private final ContragentRepository contragentRepository;
     private final UserInfoService userInfoService;
 
     /**
@@ -53,8 +56,12 @@ public class UserService implements UserDetailsService {
             log.info("Пользователь с email: {} успешно зарегистрирован", newUser.getEmail());
         }
 
+        UserSecretEntity userSecretEntity = convertUserNewToUserSecretEntity(newUser);
+        ContragentEntity contragentEntity = covertUserNewToContragentEntity(newUser);
+        contragentEntity.setUserSecret(userSecretEntity);
+        contragentRepository.save(contragentEntity);
         // Сохраняем приватный и публичный ключ для пользователя
-        userSecretRepository.save(convertUserNewToUserSecret(newUser));
+//        userSecretRepository.save(convertUserNewToUserSecret(newUser));
     }
 
     /**
@@ -80,6 +87,10 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    public List<Contragent> getAllContragents() {
+        return (convertContragentEntityToContragent(contragentRepository.findAll()));
+    }
+
     /**
      * Метод для пробега по всем ролям пользователя
      * @param roles коллекция ролей пользователя
@@ -100,11 +111,34 @@ public class UserService implements UserDetailsService {
                 .setRoles(Collections.singleton(Role.USER));
     }
 
-    private UserSecretEntity convertUserNewToUserSecret(final NewUser newUser) throws GeneralSecurityException {
+    private UserSecretEntity convertUserNewToUserSecretEntity(final NewUser newUser) throws GeneralSecurityException {
         final RSACrypto crypto = new RSACrypto();
         final KeyPair keyPair = crypto.generateKeyPair();
         return new UserSecretEntity().setEmail(newUser.getEmail())
                 .setKeyPublic(keyPair.getPublic().getEncoded())
                 .setKeyPrivate(keyPair.getPrivate().getEncoded());
+    }
+    
+    private ContragentEntity covertUserNewToContragentEntity(final NewUser newUser) {
+        return new ContragentEntity()
+                .setAddress(newUser.getContragentInfo().getAddress())
+                .setFaculty(newUser.getContragentInfo().getFaculty())
+                .setFio(newUser.getContragentInfo().getFio())
+                .setInn(newUser.getContragentInfo().getInn())
+                .setUniversity(newUser.getContragentInfo().getUniversity());
+    }
+
+    private List<Contragent> convertContragentEntityToContragent(final List<ContragentEntity> contragentEntities) {
+        return contragentEntities.stream()
+                .map(contragentEntity ->
+                    Contragent.builder()
+                            .address(contragentEntity.getAddress())
+                            .email(contragentEntity.getUserSecret().getEmail())
+                            .faculty(contragentEntity.getFaculty())
+                            .fio(contragentEntity.getFio())
+                            .university(contragentEntity.getUniversity())
+                            .inn(contragentEntity.getInn())
+                            .build()
+                ).collect(Collectors.toList());
     }
 }

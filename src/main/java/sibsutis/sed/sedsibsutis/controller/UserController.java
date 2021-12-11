@@ -26,12 +26,14 @@ public class UserController {
 
     private static final String ALL_USER_RECEIVER = "/receivers";
 
+    private static final String ALL_CONTRAGENT = "/contragent";
+
     private final UserService userService;
 
     /**
      * Метод для заведения нового пользователя в систему (только Админ)
      * @param newUser информация о новом пользователе
-     * @return Status??
+     * @return Status
      * @throws Exception
      */
 //    TODO: сделать только для админа
@@ -44,5 +46,10 @@ public class UserController {
     @GetMapping(ALL_USER_RECEIVER)
     public ResponseEntity allUserReceiver() {
         return ResponseEntity.ok(userService.getAllUserReceiver());
+    }
+
+    @GetMapping(ALL_CONTRAGENT)
+    public ResponseEntity allContragent() {
+        return ResponseEntity.ok(userService.getAllContragents());
     }
 }
